@@ -6,7 +6,7 @@ import { UpdateUserRequest } from './dto/update-users.dto';
 import { UsersService } from './users.service';
 import { AuthGuard } from '../auth/auth.guard';
 
-@Controller('v1/users')
+@Controller({ path: 'users', version: '1' })
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import utils from '../../utils';
 import { LoginRequest } from './dto/login.dto';
 
-@Controller('v1')
+@Controller({ version: '1' })
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 

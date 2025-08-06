@@ -5,7 +5,7 @@ import utils from '../../utils';
 import { AuthGuard } from '../auth/auth.guard';
 import { CreateWishesRequest } from './dto/create-wishes.dto';
 
-@Controller('v1/wishes')
+@Controller({ path: 'wishes', version: '1' })
 export class WishesController {
     constructor(private readonly wishesService: WishesService) {}
 

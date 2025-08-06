@@ -5,7 +5,7 @@ import { AuthGuard } from '../../auth/auth.guard';
 import { CreateInvitationRequest } from '../dto/create-invitation.dto';
 import { InvitationsService } from '../services/invitations.service';
 
-@Controller('v1/invitations')
+@Controller({ path: 'invitations', version: '1' })
 @UseGuards(AuthGuard)
 export class InvitationsController {
     constructor(private readonly invitationsService: InvitationsService) {}
