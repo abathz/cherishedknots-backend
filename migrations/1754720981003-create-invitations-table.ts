@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
-export class CreateInvitationsTable1754461709394 implements MigrationInterface {
+export class CreateInvitationsTable1754720981003 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -12,23 +12,30 @@ export class CreateInvitationsTable1754461709394 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'name',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
                         name: 'created_user_id',
                         type: 'int4',
                         isNullable: true,
                     },
                     {
+                        name: 'title',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'unique_id',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp with time zone',
+                        isNullable: true,
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
                         type: 'timestamp with time zone',
+                        isNullable: true,
                         default: 'now()',
                     },
                 ],
@@ -38,7 +45,6 @@ export class CreateInvitationsTable1754461709394 implements MigrationInterface {
         await queryRunner.createForeignKey(
             'invitations',
             new TableForeignKey({
-                name: 'FK_invitations_created_user_id',
                 columnNames: ['created_user_id'],
                 referencedColumnNames: ['id'],
                 referencedTableName: 'users',

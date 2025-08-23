@@ -5,13 +5,13 @@ export class Users {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('text')
+    @Column('varchar')
     name: string;
 
     @Column('text')
     email: string;
 
-    @Column('text')
+    @Column('varchar')
     password: string;
 
     @CreateDateColumn()

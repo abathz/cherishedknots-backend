@@ -20,6 +20,41 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "strictBindCallApply": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "paths": {
+            "@cherishedknots/config/*": [
+                "src/config/*"
+            ],
+            "@cherishedknots/filters/*": [
+                "src/filters/*"
+            ],
+            "@cherishedknots/filters": [
+                "src/filters/index.filter.ts"
+            ],
+            "@cherishedknots/guards/*": [
+                "src/guards/*"
+            ],
+            "@cherishedknots/guards": [
+                "src/guards/index.guard.ts"
+            ],
+            "@cherishedknots/interceptors/*": [
+                "src/interceptors/*"
+            ],
+            "@cherishedknots/interceptors": [
+                "src/interceptors/index.interceptor.ts"
+            ],
+            "@cherishedknots/modules/*": [
+                "src/modules/*"
+            ],
+            "@cherishedknots/pipes/*": [
+                "src/pipes/*"
+            ],
+            "@cherishedknots/pipes": [
+                "src/pipes/index.pipe.ts"
+            ],
+            "@cherishedknots/utils": [
+                "src/utils/index.ts"
+            ]
+        }
     }
 }

@@ -23,11 +23,8 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        const accessToken = await this.jwtService.signAsync(
-            { userId: user.id, email: user.email },
-            { expiresIn: '2d' }
-        );
-        const refreshToken = await this.jwtService.signAsync(
+        const accessToken = this.jwtService.sign({ userId: user.id, email: user.email }, { expiresIn: '2d' });
+        const refreshToken = this.jwtService.sign(
             { userId: user.id, email: user.email },
             { secret: process.env.JWT_REFRESH_TOKEN_SECRET, expiresIn: '1d' }
         );
@@ -40,7 +37,7 @@ export class AuthService {
 
         if (!user) throw new NotFoundException('User not found');
 
-        const invitations = await this.invitationsRepository.findOneInvitationsByUser(user.id);
+        const invitations = await this.invitationsRepository.findOneByUser(user.id);
 
         return {
             id: user.id,
@@ -49,7 +46,8 @@ export class AuthService {
             invitations: invitations
                 ? {
                       id: invitations.id,
-                      name: invitations.name,
+                      title: invitations.title,
+                      unique_id: invitations.unique_id,
                   }
                 : null,
             created_at: user.created_at,

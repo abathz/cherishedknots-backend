@@ -3,8 +3,8 @@ import { ConsoleLogger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './config/http-exception';
-import { LoggingInterceptor } from './config/logging';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { NetworkLogInterceptor } from './interceptors/network-log.interceptor';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -17,7 +17,7 @@ async function bootstrap() {
     app.useBodyParser('json', { limit: '20mb' });
 
     app.useGlobalFilters(new HttpExceptionFilter());
-    app.useGlobalInterceptors(new LoggingInterceptor());
+    app.useGlobalInterceptors(new NetworkLogInterceptor());
 
     await app.listen(process.env.PORT ?? 3000);
 }

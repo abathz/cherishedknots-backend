@@ -1,9 +1,9 @@
+import { AuthGuard } from '@cherishedknots/guards/auth.guard';
+import utils from '@cherishedknots/utils';
 import { Body, Controller, Get, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
-import { WishesService } from './wishes.service';
-import utils from '../../utils';
-import { AuthGuard } from '../auth/auth.guard';
 import { CreateWishesRequest } from './dto/create-wishes.dto';
+import { WishesService } from './wishes.service';
 
 @Controller({ path: 'wishes', version: '1' })
 export class WishesController {

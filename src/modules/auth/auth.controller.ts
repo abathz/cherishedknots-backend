@@ -1,8 +1,8 @@
+import { AuthGuard } from '@cherishedknots/guards/auth.guard';
+import utils from '@cherishedknots/utils';
 import { Body, Controller, Get, HttpStatus, Post, Request, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
-import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import utils from '../../utils';
 import { LoginRequest } from './dto/login.dto';
 
 @Controller({ version: '1' })

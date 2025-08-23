@@ -1,10 +1,10 @@
+import { AuthGuard } from '@cherishedknots/guards/auth.guard';
+import utils from '@cherishedknots/utils';
 import { Body, Controller, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
-import utils from '../../utils';
 import { CreateUserRequest } from './dto/create-users.dto';
 import { UpdateUserRequest } from './dto/update-users.dto';
 import { UsersService } from './users.service';
-import { AuthGuard } from '../auth/auth.guard';
 
 @Controller({ path: 'users', version: '1' })
 export class UsersController {

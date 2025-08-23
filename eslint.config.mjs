@@ -52,6 +52,7 @@ export default tseslint.config(
                     }
                 },
             ],
+            'import/no-unresolved': 'off',
             "@typescript-eslint/no-unsafe-return": "off",
             '@typescript-eslint/no-unsafe-call': 'off',
             '@typescript-eslint/no-unsafe-function-type': 'off',

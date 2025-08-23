@@ -1,16 +1,33 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitationsController } from './controllers/invitations.controller';
-import { GuestInvitations } from './entities/guest-invitations.entity';
+import { Events } from './entities/events.entity';
+import { Guests } from './entities/guests.entity';
 import { Invitations } from './entities/invitations.entity';
+import { RSVP } from './entities/rsvp.entity';
+import { EventsRepository } from './repository/events.repository';
+import { GuestsRepository } from './repository/guests.repository';
 import { InvitationsRepository } from './repository/invitations.repository';
-import { GuestInvitationsService } from './services/guest-invitations.service';
+import { RSVPRepository } from './repository/rsvp.repository';
+import { EventsService } from './services/events.service';
+import { GuestsService } from './services/guests.service';
 import { InvitationsService } from './services/invitations.service';
+import { RSVPService } from './services/rsvp.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Invitations, GuestInvitations])],
+    imports: [TypeOrmModule.forFeature([Events, Guests, Invitations, RSVP])],
     controllers: [InvitationsController],
-    providers: [InvitationsService, GuestInvitationsService, InvitationsRepository],
-    exports: [InvitationsRepository],
+    providers: [
+        EventsService,
+        GuestsService,
+        InvitationsService,
+        RSVPService,
+
+        EventsRepository,
+        GuestsRepository,
+        InvitationsRepository,
+        RSVPRepository,
+    ],
+    exports: [EventsRepository, GuestsRepository, InvitationsRepository, RSVPRepository],
 })
 export class InvitationsModule {}
