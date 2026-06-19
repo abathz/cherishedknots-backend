@@ -37,21 +37,19 @@ export class AuthService {
 
         if (!user) throw new NotFoundException('User not found');
 
-        const invitations = await this.invitationsRepository.findOneByUser(user.id);
+        const invitation = await this.invitationsRepository.findOneByUser(id);
 
         return {
             id: user.id,
             name: user.name,
             email: user.email,
-            invitations: invitations
+            invitation: invitation
                 ? {
-                      id: invitations.id,
-                      title: invitations.title,
-                      unique_id: invitations.unique_id,
+                      id: invitation.id,
+                      title: invitation.title,
+                      uniqueId: invitation.unique_id,
                   }
                 : null,
-            created_at: user.created_at,
-            updated_at: user.updated_at,
         };
     }
 }

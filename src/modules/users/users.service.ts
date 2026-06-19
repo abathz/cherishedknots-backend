@@ -48,8 +48,6 @@ export class UsersService {
             id: users.id,
             name: users.name,
             email: users.email,
-            created_at: users.created_at,
-            updated_at: users.updated_at,
         };
     }
 
@@ -64,8 +62,6 @@ export class UsersService {
             id: users.id,
             name: users.name,
             email: users.email,
-            created_at: users.created_at,
-            updated_at: users.updated_at,
         };
     }
 

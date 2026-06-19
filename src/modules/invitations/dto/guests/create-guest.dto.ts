@@ -11,7 +11,4 @@ export class CreateGuestRequest {
     @IsOptional()
     @IsString()
     email: string;
-
-    @IsString()
-    group_name: string;
 }

@@ -18,7 +18,4 @@ export class Guests {
 
     @Column('varchar')
     email: string;
-
-    @Column('varchar')
-    group_name: string;
 }

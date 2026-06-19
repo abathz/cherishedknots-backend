@@ -16,7 +16,6 @@ export class GuestsService {
             newGuests.name = guest.name;
             newGuests.phone_number = guest.phone_number;
             newGuests.email = guest.email;
-            newGuests.group_name = guest.group_name;
             newGuests.invitation_id = invitationId;
 
             arrNewGuests.push(newGuests);

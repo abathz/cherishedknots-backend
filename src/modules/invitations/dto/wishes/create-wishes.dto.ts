@@ -2,15 +2,17 @@ import { IsString } from 'class-validator';
 
 export class CreateWishesRequest {
     @IsString()
-    name: string;
+    guest_name: string;
 
     @IsString()
     wish: string;
+
+    invitation_id: number;
 }
 
 export class CreateWishesResponse {
     id: number;
-    name: string;
+    guest_name: string;
     wish: string;
     created_at: Date;
     updated_at: Date;

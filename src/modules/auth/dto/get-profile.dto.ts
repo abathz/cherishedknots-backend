@@ -1,9 +1,6 @@
+import { FindOneInvitationResponse } from '../../invitations/dto/invitations/find-one-invitation.dto';
 import { FindByIdUsersResponse } from '../../users/dto/find-by-id-users.dto';
 
 export class GetProfileResponse extends FindByIdUsersResponse {
-    invitations: {
-        id: number;
-        title: string;
-        unique_id: string;
-    } | null;
+    invitation: Pick<FindOneInvitationResponse, 'id' | 'title' | 'uniqueId'> | null;
 }

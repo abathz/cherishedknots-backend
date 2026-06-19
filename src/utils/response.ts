@@ -1,10 +1,10 @@
 import type { Response as ExpressResponse } from 'express';
 
 export interface ParamsResponse {
-    [key: string]: any;
-    StatusCode?: number;
-    Message?: string | string[];
-    Exception?: { [key: string]: string } | string;
+    data?: any;
+    statusCode: number;
+    message?: string | string[];
+    exception?: { [key: string]: string } | string;
 }
 
 const omit = <T extends object, K extends keyof T>(obj: T, keys: K[]) => {
@@ -12,7 +12,7 @@ const omit = <T extends object, K extends keyof T>(obj: T, keys: K[]) => {
 };
 
 const Response = (res: ExpressResponse, params: ParamsResponse) => {
-    if (params.Exception) {
+    if (params.exception) {
         responseError(res, params);
     } else {
         responseSuccess(res, params);
@@ -21,22 +21,22 @@ const Response = (res: ExpressResponse, params: ParamsResponse) => {
 
 const responseError = (res: ExpressResponse, params: ParamsResponse) => {
     const response = {
-        ErrorCode: `ERR_${params.StatusCode}`,
-        Message: params.Exception,
-        ...omit(params, ['StatusCode', 'Message', 'Exception']),
+        errorCode: `ERR_${params.statusCode}`,
+        message: params.exception,
+        ...omit(params, ['statusCode', 'message', 'exception']),
     };
 
-    res.status(params.StatusCode || 500).json(response);
+    res.status(params.statusCode || 500).json(response);
 };
 
 const responseSuccess = (res: ExpressResponse, params: ParamsResponse) => {
     const response = {
-        Status: params.StatusCode,
-        Message: params.Message || 'Success',
-        ...omit(params, ['StatusCode', 'Message', 'Exception']),
+        status: params.statusCode,
+        message: params.message || 'Success',
+        ...omit(params, ['statusCode', 'message', 'exception']),
     };
 
-    res.status(params.StatusCode || 500).send(response);
+    res.status(params.statusCode || 500).send(response);
 };
 
 export default Response;

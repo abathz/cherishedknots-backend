@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
-export class CreateGuestsTable1754721025185 implements MigrationInterface {
+export class CreateWishesTable1765103019804 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'guests',
+                name: 'wishes',
                 columns: [
                     {
                         name: 'id',
@@ -16,26 +16,33 @@ export class CreateGuestsTable1754721025185 implements MigrationInterface {
                         type: 'int4',
                     },
                     {
-                        name: 'name',
+                        name: 'guest_name',
                         type: 'varchar',
                         isNullable: true,
                     },
                     {
-                        name: 'phone_number',
+                        name: 'wish',
                         type: 'varchar',
                         isNullable: true,
                     },
                     {
-                        name: 'email',
-                        type: 'varchar',
+                        name: 'created_at',
+                        type: 'timestamp with time zone',
                         isNullable: true,
+                        default: 'now()',
+                    },
+                    {
+                        name: 'updated_at',
+                        type: 'timestamp with time zone',
+                        isNullable: true,
+                        default: 'now()',
                     },
                 ],
             })
         );
 
         await queryRunner.createForeignKey(
-            'guests',
+            'wishes',
             new TableForeignKey({
                 columnNames: ['invitation_id'],
                 referencedColumnNames: ['id'],
@@ -46,10 +53,11 @@ export class CreateGuestsTable1754721025185 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        const tableGuests = await queryRunner.getTable('guests');
-        const foreignKeyGuests = tableGuests?.foreignKeys.find((fk) => fk.columnNames.indexOf('invitation_id') !== -1);
-        await queryRunner.dropForeignKey('guests', foreignKeyGuests!);
-
-        await queryRunner.dropTable('guests');
+        const tableEvents = await queryRunner.getTable('wishes');
+        const foreignKeyEvents = tableEvents?.foreignKeys.filter((fk) =>
+            ['invitation_id'].some((col) => fk.columnNames.includes(col))
+        );
+        await queryRunner.dropForeignKeys('wishes', foreignKeyEvents!);
+        await queryRunner.dropTable('wishes');
     }
 }
