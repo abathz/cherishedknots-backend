@@ -1,0 +1,62 @@
+name: Pull Request Validation
+on:
+  - pull_request
+
+jobs:
+  validation:
+    name: PR Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-mobile-retail-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: 'pnpm'
+
+      - name: Setup
+        run: |
+          pnpm i
+          git reset --soft origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.ts
+            **/*.tsx
+            **/*.js
+            **/*.jsx
+            **/*.cjs
+            **/*.mjs
+
+      - name: Run eslint type checking on changed files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Running eslint type-aware check on changed files..."
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          if ! npx eslint --quiet ${{ steps.changed-files.outputs.all_changed_files }}; then
+            echo "❌ Type check failed! Please fix the errors above."
+            exit 1
+          fi
+          echo "✅ Type check passed!"
+
+      - name: Run TSCLint
+        run: |
+          bash ./scripts/tsclint.sh
